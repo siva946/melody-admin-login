@@ -9,13 +9,22 @@ export default function DashBoard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    API.get("/images").then((res) => setImages(res.data));
+    API.get("/images").then((res) => setImages(res.data))
+    .catch((err) => {
+      console.error("Failed to fetch images:", err);
+      alert("Error fetching images");
+    });;
   }, []);
 
   const handleDelete = async (id) => {
+  try {
     await API.delete(`/images/admin/${id}`);
     setImages((prev) => prev.filter((img) => img._id !== id));
-  };
+  } catch (err) {
+    console.error("Failed to delete image:", err);
+    alert("Error deleting image");
+  }
+};
 
   const moveImageUp = (index) => {
     if (index === 0) return;

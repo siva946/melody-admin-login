@@ -12,8 +12,9 @@ const Imageuploader = ({ onUploaded }) => {
   };
 
   const handleUpload = async () => {
-    if (!files.length) return;
-    const uploadedResults = [];
+  if (!files.length) return;
+  const uploadedResults = [];
+  try {
     for (let i = 0; i < files.length; i++) {
       const formData = new FormData();
       formData.append("image", files[i]);
@@ -23,7 +24,11 @@ const Imageuploader = ({ onUploaded }) => {
     onUploaded(uploadedResults);
     setFiles([]);
     setPreviews([]);
-  };
+  } catch (err) {
+    console.error("Failed to upload images:", err);
+    alert("Error uploading images");
+  }
+};
 
   return (
     <div className="bg-white p-4 rounded-xl shadow-md w-full max-w-lg mx-auto">
