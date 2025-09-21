@@ -33,7 +33,11 @@ const GalleryItem = () => {
     <div className="relative w-full max-w-3xl mx-auto p-6 bg-gray-100 rounded-lg shadow">
       <div className="overflow-hidden rounded-xl">
         <img
-          src={`${process.env.REACT_APP_API_URL || 'https://melody-admin-backend.vercel.app'}${images[currentIndex].url}`}
+          src={
+            images[currentIndex].url.startsWith('http')
+              ? images[currentIndex].url
+              : `${process.env.REACT_APP_API_URL || 'https://melody-admin-backend.vercel.app'}${images[currentIndex].url}`
+          }
           alt={images[currentIndex].title}
           className="w-full h-72 object-cover transition duration-500 ease-in-out"
           onError={(e) => console.error("Image load error:", e.target.src)}

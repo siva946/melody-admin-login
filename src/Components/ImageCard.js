@@ -4,7 +4,11 @@ const ImageCard = ({ img, onDelete, onMoveUp, onMoveDown, isFirst, isLast }) => 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden p-2">
       <img
-        src={`${process.env.REACT_APP_API_URL || 'https://melody-admin-backend.vercel.app'}${img.url}`}
+        src={
+          img.url.startsWith('http')
+            ? img.url
+            : `${process.env.REACT_APP_API_URL || 'https://melody-admin-backend.vercel.app'}${img.url}`
+        }
         alt={img.title}
         className="w-full h-48 object-cover rounded-md mb-2"
       />
